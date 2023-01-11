@@ -22,3 +22,9 @@
         tenant_b_default_principal_id = "<A user, group object or service principal client Id to give accesss to the app insights>"
         tenant_b_rg                   = "<Team B resource group>"
         tenant_b_rg_location          = "<Team B resource group location>"
+        
+  - Still in the Infrastructure directory, run 
+  
+        terraform init
+        terraform plan
+        terraform apply -auto-approve
