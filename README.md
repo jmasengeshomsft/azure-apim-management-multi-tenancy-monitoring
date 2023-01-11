@@ -7,7 +7,6 @@
 - Navigate in the infrastucture directory
 - Create a file named **terraform.tfvars** and set the values as show below
 
-      ```azcli 
 
         apim_rg             = "<apim resource group>"
         apim_region         = "<apim location>"
