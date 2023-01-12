@@ -6,9 +6,15 @@ resource "azurerm_resource_group_template_deployment" "arm_logic_app" {
   parameters_content       = jsonencode({
     "workflows_app1_alerts_name" = {
       value = var.logic_app_name
-    },
+    }
+    "connections_azuretables_name" = {
+      value = var.connections_azuretables_name
+    }
     "storage_account_name" = {
       value = var.storage_account_name
+    },
+    "apim_instance_name" = {
+      value = var.apim_instance_name
     }
   })
 }

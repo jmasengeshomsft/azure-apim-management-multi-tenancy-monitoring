@@ -20,3 +20,13 @@ variable "storage_account_name" {
     type        = string
 }
 
+variable "connections_azuretables_name" {
+    description = "The name of the storage account connection"
+    type        = string
+}
+
+variable "apim_instance_name" {
+    description = "The name of the API Management instance"
+    type        = string
+}
+
