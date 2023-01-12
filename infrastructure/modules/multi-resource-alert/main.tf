@@ -13,10 +13,17 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
     time_aggregation_method = "Count"
     threshold               = 5
     operator                = "GreaterThan"
+    resource_id_column               = "_ResourceId"
+    # metric_measure_column            = var.dimension_name
     dimension {
-      name     = var.dimension_name
-      operator = "Exclude"
-      values   = ["200"]
+      name     = "ApiName"
+      operator = "Include"
+      values   = ["*"]
+    }
+    dimension {
+      name     = "ResultCode"
+      operator = "Include"
+      values   = ["*"]
     }
 
     failing_periods {

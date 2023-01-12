@@ -2,7 +2,7 @@
 variable "logic_app_name" {
     description = "The name of the logic apps"
     type        = string
-    default     = "apim-alerts-broadcasting-logic-apps"
+    default     = "apim-alerts-broadcasting"
 }
 
 variable "email_address" {
@@ -15,7 +15,3 @@ variable "resource_group_name" {
     type        = string
 }
 
-variable "location" {
-    description = "The location of the resource group"
-    type        = string
-}

@@ -5,18 +5,18 @@
         "workflows_app1_alerts_name": {
             "defaultValue": "app1-alerts",
             "type": "String"
-        },
-        "workflows_app1_alerts_location": {
-            "type": "String"
-        }   
+        }
     },
-    "variables": {},
+    "variables": {
+        "logicAppsName": "[toLower( concat( parameters('workflows_app1_alerts_name'), uniqueString(resourceGroup().id) ) )]",
+        "location": "[resourceGroup().location]"
+    },
     "resources": [
         {
             "type": "Microsoft.Logic/workflows",
             "apiVersion": "2017-07-01",
-            "name": "[parameters('workflows_app1_alerts_name')]",
-            "location":"[parameters('workflows_app1_alerts_location')]",
+            "name": "[variables('logicAppsName')]",
+            "location":"[variables('location')]",
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -264,11 +264,11 @@
     "outputs": {
         "logicAppsResourceId": {
             "type": "string",
-            "value": "[resourceId('Microsoft.Logic/workflows', parameters('workflows_app1_alerts_name'))]"
+            "value": "[resourceId('Microsoft.Logic/workflows', variables('logicAppsName'))]"
         },
         "logicAppsCallBackUrl": {
             "type": "string",
-            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', parameters('workflows_app1_alerts_name')), '/triggers/manual'), '2016-06-01').value]"
+            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', variables('logicAppsName')), '/triggers/manual'), '2016-06-01').value]"
         }
     }
 }

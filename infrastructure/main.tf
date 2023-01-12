@@ -16,7 +16,6 @@ resource "azurerm_log_analytics_workspace" "main_law" {
 module "logic_app_action_group" {
   source              = "./modules/action-group/"
   email_address       = var.admin_email_address
-  location            = data.azurerm_api_management.apim_instance.location
   resource_group_name = data.azurerm_api_management.apim_instance.resource_group_name
 }
 
@@ -111,13 +110,10 @@ module "multi_app_insights_query_alert" {
   alert_rule_name            = "ALL_SUB-APP-INSIGHTS-QUERY-ALERTS"
   alert_rule_query           = <<-QUERY
                                   AppRequests
-                                    | project 
-                                      Name,
-                                      OperationName, 
-                                      DurationMs,
-                                      ResultCode
-                                  QUERY
-  dimension_name             = "ResultCode"
+                                  | where AppRoleName == "multi-tenant-apim Central US" and ResultCode !in (200,201)
+                                  | project ApiName = tostring(split(OperationName, ";")[0]), OperationName, DurationMs, ResultCode, AppRoleName, _ResourceId
+                                QUERY
+  dimension_name             = "Occurence"
   location                   = data.azurerm_api_management.apim_instance.location
   resource_group_name        = data.azurerm_api_management.apim_instance.resource_group_name
   app_insights_scope         = ["/subscriptions/${data.azurerm_client_config.current.subscription_id}"]

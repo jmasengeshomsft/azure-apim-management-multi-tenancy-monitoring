@@ -4,9 +4,6 @@ resource "azurerm_resource_group_template_deployment" "arm_based_logic_app" {
   deployment_mode          = "Incremental"
   template_content         = file("${path.module}/arm-templates/logic-apps-arm.json")
   parameters_content       = jsonencode({
-    "workflows_app1_alerts_location" = {
-      value = var.location
-    }
     "workflows_app1_alerts_name" = {
       value = var.logic_app_name
     }
