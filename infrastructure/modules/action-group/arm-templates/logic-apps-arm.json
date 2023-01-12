@@ -206,7 +206,7 @@
                                                     {
                                                         "equals": [
                                                             "@items('For_each_2')['name']",
-                                                            "name"
+                                                            "ApiName"
                                                         ]
                                                     }
                                                 ]
