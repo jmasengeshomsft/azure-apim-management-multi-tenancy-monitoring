@@ -5,6 +5,9 @@
         "workflows_app1_alerts_name": {
             "defaultValue": "app1-alerts",
             "type": "String"
+        },
+        "storage_account_name": {
+            "type": "String"
         }
     },
     "variables": {
@@ -17,6 +20,9 @@
             "apiVersion": "2017-07-01",
             "name": "[variables('logicAppsName')]",
             "location":"[variables('location')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -198,6 +204,18 @@
                                                         "name": "MetricValue",
                                                         "value": "@items('For_each')['metricValue']"
                                                     }
+                                                },
+                                                 "Set_variable_3": {
+                                                    "inputs": {
+                                                        "name": "TenantEmail",
+                                                        "value": "@body('Get_entity')?['RowKey']"
+                                                    },
+                                                    "runAfter": {
+                                                        "Get_entity": [
+                                                            "Succeeded"
+                                                        ]
+                                                    },
+                                                    "type": "SetVariable"
                                                 }
                                             },
                                             "runAfter": {},
@@ -252,12 +270,52 @@
                                     }
                                 ]
                             }
+                        },
+                        "Initialize_variable_3": {
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "TenantEmail",
+                                        "type": "string"
+                                    }
+                                ]
+                            },
+                            "runAfter": {
+                                "Initialize_variable_2": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable"
                         }
                     },
                     "outputs": {
                     }
                 },
                 "parameters": {}
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "apiVersion": "2016-06-01",
+            "name": "[parameters('storage_account_name')]",
+            "location": "[variables('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Logic/workflows', variables('logicAppsName'))]"
+            ],
+            "properties": {
+                "api": {
+                    "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', variables('location'), 'azuretables')]"
+                },
+                "parameterValues": {
+                    "accountName": "[parameters('storage_account_name')]",
+                    "accessKey": "[listKeys(variables('logicAppsName'), '2019-04-01').keys[0].value]"
+                },
+                "testLinks": [
+                    {
+                        "requestUri": "[uri(parameters('azureMgmtUri'), concat('subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/', parameters('storage_account_name'), '/extensions/proxy/testconnection?api-version=2018-07-01-preview'))]",
+                        "method": "get"
+                    }
+                ]
             }
         }
     ],

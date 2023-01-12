@@ -14,6 +14,12 @@ variable "admin_email_address" {
   type        = string
 }
 
+variable "reference_data_storage_account_name" {
+  description = "Storage Account for Reference Data"
+  type        = string
+}
+
+
 //tenant-a
 variable "tenant_a_default_principal_id" {
   description = "The default principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
