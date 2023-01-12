@@ -51,3 +51,20 @@ variable "tenant_b_rg_location" {
   description = "The region for the tenant A team"
   type        = string
 }
+
+
+        // {
+        //     "type": "Microsoft.Web/connections",
+        //     "apiVersion": "2016-06-01",
+        //     "name": "[parameters('storage_account_name')]",
+        //     "location": "[variables('location')]",
+        //     "properties": {
+        //         "api": {
+        //             "id": "[subscriptionResourceId('Microsoft.Web/locations/managedApis', variables('location'), 'azuretables')]"
+        //         },
+        //         "parameterValues": {
+        //             "accountName": "[parameters('storage_account_name')]",
+        //             "accessKey": "[listKeys(parameters('storage_account_name'), '2017-07-01').keys[0].value]"
+        //         }
+        //     }
+        // }

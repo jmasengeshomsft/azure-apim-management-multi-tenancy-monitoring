@@ -4,5 +4,5 @@ output "action_group" {
 }
 
 output logic_apps {
-  value = jsondecode(azurerm_resource_group_template_deployment.arm_based_logic_app.output_content).logicAppsResourceId.value
+  value = jsondecode(azurerm_resource_group_template_deployment.arm_logic_app.output_content).logicAppsResourceId.value
 }
