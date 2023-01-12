@@ -5,9 +5,6 @@
         "workflows_app1_alerts_name": {
             "defaultValue": "app1-alerts",
             "type": "String"
-        },
-        "storage_account_name": {
-            "type": "String"
         }
     },
     "variables": {
@@ -20,9 +17,6 @@
             "apiVersion": "2017-07-01",
             "name": "[variables('logicAppsName')]",
             "location":"[variables('location')]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -158,7 +152,7 @@
                     "actions": {
                         "Compose": {
                             "runAfter": {
-                                "Initialize_variable_3": [
+                                "Initialize_variable_2": [
                                     "Succeeded"
                                 ]
                             },
@@ -167,7 +161,7 @@
                         },
                         "Compose_2": {
                             "runAfter": {
-                                "Get_entity": [
+                                "For_each": [
                                     "Succeeded"
                                 ]
                             },
@@ -204,18 +198,6 @@
                                                         "name": "MetricValue",
                                                         "value": "@items('For_each')['metricValue']"
                                                     }
-                                                },
-                                                 "Set_variable_3": {
-                                                    "inputs": {
-                                                        "name": "TenantEmail",
-                                                        "value": ""
-                                                    },
-                                                     "runAfter": {
-                                                        "Set_variable_2": [
-                                                            "Succeeded"
-                                                        ]
-                                                    },
-                                                    "type": "SetVariable"
                                                 }
                                             },
                                             "runAfter": {},
@@ -242,23 +224,6 @@
                                 ]
                             },
                             "type": "Foreach"
-                        },
-                        "Get_entity": {
-                            "inputs": {
-                                "host": {
-                                    "connection": {
-                                        "name": "@parameters('$connections')[parameters('storage_account_name')]['connectionId']"
-                                    }
-                                },
-                                "method": "get",
-                                "path": "/Tables/@{encodeURIComponent('apimApiCatalogue')}/entities(PartitionKey='@{encodeURIComponent(variables('API'))}',RowKey='@{encodeURIComponent('multi-tenant-apim')}')"
-                            },
-                            "runAfter": {
-                                "For_each": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "ApiConnection"
                         },
                         "Initialize_variable": {
                             "runAfter": {},
@@ -287,22 +252,6 @@
                                     }
                                 ]
                             }
-                        },
-                        "Initialize_variable_3": {
-                            "inputs": {
-                                "variables": [
-                                    {
-                                        "name": "TenantEmail",
-                                        "type": "string"
-                                    }
-                                ]
-                            },
-                            "runAfter": {
-                                "Initialize_variable_2": [
-                                    "Succeeded"
-                                ]
-                            },
-                            "type": "InitializeVariable"
                         }
                     },
                     "outputs": {
@@ -319,7 +268,7 @@
         },
         "logicAppsCallBackUrl": {
             "type": "string",
-            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', variables('logicAppsName')), '/triggers/manual'), '2017-07-01').value]"
+            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', variables('logicAppsName')), '/triggers/manual'), '2016-06-01').value]"
         }
     }
 }
