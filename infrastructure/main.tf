@@ -12,11 +12,24 @@ resource "azurerm_log_analytics_workspace" "main_law" {
   retention_in_days   = 30
 }
 
+module "reference_data_table_storage" {
+  source                      = "./modules/table-storage/"
+  storage_account_name        = var.reference_data_storage_account_name
+  resource_group_name         = data.azurerm_api_management.apim_instance.resource_group_name
+  location                    = data.azurerm_api_management.apim_instance.location
+}
+
 //logic app action group
 module "logic_app_action_group" {
+  depends_on = [
+    module.reference_data_table_storage
+  ]
   source              = "./modules/action-group/"
   email_address       = var.admin_email_address
   resource_group_name = data.azurerm_api_management.apim_instance.resource_group_name
+  storage_account_name = module.reference_data_table_storage.storage_account.name
+  connections_azuretables_name = "AzureTablesConnection"
+  apim_instance_name = data.azurerm_api_management.apim_instance.name
 }
 
 //tenant or team A

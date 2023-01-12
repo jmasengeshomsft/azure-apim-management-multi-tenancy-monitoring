@@ -2,7 +2,7 @@
 variable "logic_app_name" {
     description = "The name of the logic apps"
     type        = string
-    default     = "apim-alerts-broadcasting"
+    default     = "apim-alerts-broadcast"
 }
 
 variable "email_address" {
@@ -12,6 +12,21 @@ variable "email_address" {
 
 variable "resource_group_name" {
     description = "The API Management Resource Group Name"
+    type        = string
+}
+
+variable "storage_account_name" {
+    description = "The name of the storage account"
+    type        = string
+}
+
+variable "connections_azuretables_name" {
+    description = "The name of the storage account connection"
+    type        = string
+}
+
+variable "apim_instance_name" {
+    description = "The name of the API Management instance"
     type        = string
 }
 
