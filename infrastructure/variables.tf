@@ -25,6 +25,10 @@ variable "tenant_a_default_principal_id" {
   description = "The default principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
   type        = string
 }
+variable "tenant_a_grafana_principal_id" {
+  description = "The Grafana principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
+  type        = string
+}
 
 variable "tenant_a_rg" {
   description = "The resource group for the tenant A team"
@@ -39,6 +43,11 @@ variable "tenant_a_rg_location" {
 //tenant-b
 variable "tenant_b_default_principal_id" {
   description = "The default principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
+  type        = string
+}
+
+variable "tenant_b_grafana_principal_id" {
+  description = "The Grafana principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
   type        = string
 }
 

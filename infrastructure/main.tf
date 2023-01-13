@@ -63,6 +63,10 @@ resource "azurerm_resource_group" "tenant_a_rg" {
   location = var.tenant_a_rg_location
 }
 
+data "azuread_service_principal" "team_a_grafana_service_principal" {
+  application_id = var.tenant_a_grafana_principal_id
+}
+
 module "tenant_a" {
   source                      = "./modules/tenant/"
   tenant_name                 = "tenant-a"
@@ -71,7 +75,18 @@ module "tenant_a" {
   apim_name                   = data.azurerm_api_management.apim_instance.name
   apim_resource_group_name    = data.azurerm_api_management.apim_instance.resource_group_name
   law_workspace_id            = azurerm_log_analytics_workspace.main_law.id
-  tenant_default_principal_id = var.tenant_a_default_principal_id
+  tenant_principal_ids        = [  
+                                  {
+                                    principal_id  = var.tenant_a_default_principal_id
+                                    role          = "Reader",
+                                    skip_service_principal_aad_check = true
+                                  },
+                                  {
+                                    principal_id  = data.azuread_service_principal.team_a_grafana_service_principal.object_id
+                                    role          = "Log Analytics Reader",
+                                    skip_service_principal_aad_check = true
+                                  }
+                                ]
   tenant_resource_group_name  = azurerm_resource_group.tenant_a_rg.name
   tenant_location             = azurerm_resource_group.tenant_a_rg.location
 }
@@ -79,7 +94,7 @@ module "tenant_a" {
 //Conference API
 module "team_a_api" {
   source                           = "./modules/tenant-api/"
-  api_name                         = "team-a-conference-api"
+  api_name                         = "team-a-conference"
   api_service_url                  = "https://conferenceapi.azurewebsites.net"
   api_path                         = "conference"
   api_swagger_link                 = "https://conferenceapi.azurewebsites.net/?format=json"
@@ -96,6 +111,10 @@ resource "azurerm_resource_group" "tenant_b_rg" {
   location = var.tenant_b_rg_location
 }
 
+data "azuread_service_principal" "team_b_grafana_service_principal" {
+  application_id = var.tenant_b_grafana_principal_id
+}
+
 module "tenant_b" {
   source                      = "./modules/tenant/"
   tenant_name                 = "tenant-b"
@@ -104,7 +123,18 @@ module "tenant_b" {
   apim_name                   = data.azurerm_api_management.apim_instance.name
   apim_resource_group_name    = data.azurerm_api_management.apim_instance.resource_group_name
   law_workspace_id            = azurerm_log_analytics_workspace.main_law.id
-  tenant_default_principal_id = var.tenant_b_default_principal_id
+  tenant_principal_ids        = [  
+                                  {
+                                    principal_id  = var.tenant_b_default_principal_id
+                                    role          = "Reader",
+                                    skip_service_principal_aad_check = true
+                                  },
+                                  {
+                                    principal_id  = data.azuread_service_principal.team_b_grafana_service_principal.object_id
+                                    role          = "Log Analytics Reader",
+                                    skip_service_principal_aad_check = true
+                                  }
+                                ]
   tenant_resource_group_name  = azurerm_resource_group.tenant_b_rg.name
   tenant_location             = azurerm_resource_group.tenant_b_rg.location
 }
@@ -112,7 +142,7 @@ module "tenant_b" {
 //PetStore API
 module "team_b_api" {
   source                           = "./modules/tenant-api/"
-  api_name                         = "team-b-petstore-api"
+  api_name                         = "team-b-petstore"
   api_service_url                  = "https://petstore.swagger.io/v2"
   api_path                         = "petstore"
   api_swagger_link                 = "https://petstore.swagger.io/v2/swagger.json"
