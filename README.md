@@ -177,7 +177,8 @@
 
 ### Design with Hub + Spoke
 
-![Hub-and-spoke-single-PE](media/93d8f1af95bb5e00cd2a10559167f3a2.png)
+![image](https://user-images.githubusercontent.com/86074746/212336750-f833b621-28bc-4946-94ed-2ed3314c514d.png)
+
 
 ### Azure Resource Manager
 
