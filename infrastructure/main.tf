@@ -4,12 +4,12 @@ data "azurerm_api_management" "apim_instance" {
   resource_group_name = var.apim_rg
 }
 
-module "apim_eventgrid_subscription" {
-  source                                 = "./modules/eventgrid-subscription/"
-  azurerm_eventgrid_subscription_name    = "${var.apim_name}-eventgrid-subscription"
-  subscription_scope_id                  = data.azurerm_api_management.apim_instance.id
-  webhook_endpoint_url                   = module.reference_data_table_storage.logic_apps_callback
-}
+# module "apim_eventgrid_subscription" {
+#   source                                 = "./modules/eventgrid-subscription/"
+#   azurerm_eventgrid_subscription_name    = "${var.apim_name}-eventgrid-subscription"
+#   subscription_scope_id                  = data.azurerm_api_management.apim_instance.id
+#   webhook_endpoint_url                   = module.reference_data_table_storage.logic_apps_callback
+# }
 
 resource "azurerm_log_analytics_workspace" "main_law" {
   name                = "apim-multi-tenancy-law"
@@ -20,11 +20,13 @@ resource "azurerm_log_analytics_workspace" "main_law" {
 }
 
 module "reference_data_table_storage" {
-  source                        = "./modules/table-storage/"
-  storage_account_name          = var.reference_data_storage_account_name
-  resource_group_name           = data.azurerm_api_management.apim_instance.resource_group_name
-  location                      = data.azurerm_api_management.apim_instance.location
-  connections_azuretables_name  = "AzureTablesConnection"
+  source                                  = "./modules/table-storage/"
+  storage_account_name                    = var.reference_data_storage_account_name
+  resource_group_name                     = data.azurerm_api_management.apim_instance.resource_group_name
+  location                                = data.azurerm_api_management.apim_instance.location
+  azurerm_eventgrid_subscription_name     = "${var.apim_name}-eventgrid-subscription"
+  subscription_scope_id                   = data.azurerm_api_management.apim_instance.id
+  connections_azuretables_name            = "AzureTablesConnection"
 }
 
 //logic app action group

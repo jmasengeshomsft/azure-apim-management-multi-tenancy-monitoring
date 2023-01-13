@@ -20,6 +20,17 @@ variable "connections_azuretables_name" {
     type        = string
 }
 
+variable "azurerm_eventgrid_subscription_name" {
+    description = "The name of the event grid subscription"
+    type        = string
+}
+
+
+variable "subscription_scope_id" {
+    description = "The scope of the event grid subscription"
+    type        = string
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   default     =  {

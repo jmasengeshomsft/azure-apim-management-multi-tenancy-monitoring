@@ -36,3 +36,16 @@ resource "azurerm_resource_group_template_deployment" "ref_data_logic_app" {
     }
   })
 }
+
+resource "azurerm_eventgrid_event_subscription" "subscription" {
+  name  = var.azurerm_eventgrid_subscription_name
+  scope = var.subscription_scope_id
+
+  webhook_endpoint {
+    url = jsondecode(azurerm_resource_group_template_deployment.ref_data_logic_app.output_content).logicAppsCallBackUrl.value
+  }
+
+  included_event_types = [
+     "Microsoft.ApiManagement.APICreated",
+  ]
+}
