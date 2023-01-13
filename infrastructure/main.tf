@@ -4,6 +4,13 @@ data "azurerm_api_management" "apim_instance" {
   resource_group_name = var.apim_rg
 }
 
+# module "apim_eventgrid_subscription" {
+#   source                                 = "./modules/eventgrid-subscription/"
+#   azurerm_eventgrid_subscription_name    = "${var.apim_name}-eventgrid-subscription"
+#   subscription_scope_id                  = data.azurerm_api_management.apim_instance.id
+#   webhook_endpoint_url                   = module.reference_data_table_storage.logic_apps_callback
+# }
+
 resource "azurerm_log_analytics_workspace" "main_law" {
   name                = "apim-multi-tenancy-law"
   location            = data.azurerm_api_management.apim_instance.location
@@ -13,17 +20,18 @@ resource "azurerm_log_analytics_workspace" "main_law" {
 }
 
 module "reference_data_table_storage" {
-  source                      = "./modules/table-storage/"
-  storage_account_name        = var.reference_data_storage_account_name
-  resource_group_name         = data.azurerm_api_management.apim_instance.resource_group_name
-  location                    = data.azurerm_api_management.apim_instance.location
+  source                                  = "./modules/table-storage/"
+  storage_account_name                    = var.reference_data_storage_account_name
+  resource_group_name                     = data.azurerm_api_management.apim_instance.resource_group_name
+  location                                = data.azurerm_api_management.apim_instance.location
+  azurerm_eventgrid_subscription_name     = "${var.apim_name}-eventgrid-subscription"
+  subscription_scope_id                   = data.azurerm_api_management.apim_instance.id
+  connections_azuretables_name            = "AzureTablesConnection"
+  default_admin_email                     = var.admin_email_address
 }
 
 //logic app action group
 module "logic_app_action_group" {
-  depends_on = [
-    module.reference_data_table_storage
-  ]
   source              = "./modules/action-group/"
   email_address       = var.admin_email_address
   resource_group_name = data.azurerm_api_management.apim_instance.resource_group_name
@@ -54,7 +62,7 @@ module "tenant_a" {
 //Conference API
 module "team_a_api" {
   source                           = "./modules/tenant-api/"
-  api_name                         = "team-a-conference-api-1"
+  api_name                         = "team-a-conference-api"
   api_service_url                  = "https://conferenceapi.azurewebsites.net"
   api_path                         = "conference"
   api_swagger_link                 = "https://conferenceapi.azurewebsites.net/?format=json"
@@ -84,13 +92,13 @@ module "tenant_b" {
   tenant_location             = azurerm_resource_group.tenant_b_rg.location
 }
 
-//Conference API
+//PetStore API
 module "team_b_api" {
   source                           = "./modules/tenant-api/"
-  api_name                         = "team-b-conference-api-1"
-  api_service_url                  = "https://conferenceapi.azurewebsites.net"
-  api_path                         = "conferenceb"
-  api_swagger_link                 = "https://conferenceapi.azurewebsites.net/?format=json"
+  api_name                         = "team-b-petstore-api"
+  api_service_url                  = "https://petstore.swagger.io/v2"
+  api_path                         = "petstore"
+  api_swagger_link                 = "https://petstore.swagger.io/v2/swagger.json"
   product_id                       = module.tenant_b.product.product_id
   apim_name                        = data.azurerm_api_management.apim_instance.name
   apim_resource_group_name         = data.azurerm_api_management.apim_instance.resource_group_name
@@ -123,7 +131,7 @@ module "multi_app_insights_query_alert" {
   alert_rule_name            = "ALL_SUB-APP-INSIGHTS-QUERY-ALERTS"
   alert_rule_query           = <<-QUERY
                                   AppRequests
-                                  | where AppRoleName == "multi-tenant-apim Central US" and ResultCode !in (200,201)
+                                  | where AppRoleName contains "${data.azurerm_api_management.apim_instance.name}" and ResultCode !in (200,201)
                                   | project ApiName = tostring(split(OperationName, ";")[0]), OperationName, DurationMs, ResultCode, AppRoleName, _ResourceId
                                 QUERY
   dimension_name             = "Occurence"
