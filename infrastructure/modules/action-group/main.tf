@@ -10,9 +10,6 @@ resource "azurerm_resource_group_template_deployment" "arm_logic_app" {
     "connections_azuretables_name" = {
       value = var.connections_azuretables_name
     }
-    "storage_account_name" = {
-      value = var.storage_account_name
-    },
     "apim_instance_name" = {
       value = var.apim_instance_name
     }

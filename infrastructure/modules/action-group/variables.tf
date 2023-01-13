@@ -15,11 +15,6 @@ variable "resource_group_name" {
     type        = string
 }
 
-variable "storage_account_name" {
-    description = "The name of the storage account"
-    type        = string
-}
-
 variable "connections_azuretables_name" {
     description = "The name of the storage account connection"
     type        = string

@@ -9,9 +9,6 @@
         "connections_azuretables_name": {
             "type": "String"
         },
-        "storage_account_name": {
-            "type": "String"
-        },
         "apim_instance_name": {
             "type": "String"
         }
@@ -19,7 +16,6 @@
     "variables": {
         "logicAppsName": "[toLower( concat( parameters('workflows_app1_alerts_name'), uniqueString(resourceGroup().id) ) )]",
         "location": "[resourceGroup().location]",
-        "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storage_account_name'))]",
         "tableStorageConnectionId": "[resourceId('Microsoft.Web/connections/', parameters('connections_azuretables_name'))]"
     },
     "resources": [
@@ -28,9 +24,6 @@
             "apiVersion": "2017-07-01",
             "name": "[variables('logicAppsName')]",
             "location":"[variables('location')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Web/connections', parameters('connections_azuretables_name'))]"
-            ],
             "properties": {
                 "state": "Enabled",
                 "definition": {
@@ -309,34 +302,6 @@
                         }
                     }
                 }
-            }
-        },
-        {
-            "type": "Microsoft.Web/connections",
-            "apiVersion": "2016-06-01",
-            "name": "[parameters('connections_azuretables_name')]",
-            "location":"[resourceGroup().location]",
-            "kind": "V1",
-            "properties": {
-                "displayName": "apim-ref-data-connection",
-                "customParameterValues": {},
-                "api": {
-                    "name": "[parameters('connections_azuretables_name')]",
-                    "displayName": "Azure Table Storage",
-                    "description": "Azure Table storage is a service that stores structured NoSQL data in the cloud, providing a key/attribute store with a schemaless design. Sign into your Storage account to create, update, and query tables and more.",
-                    "id": "[concat('/subscriptions/', subscription().subscriptionId,'/providers/Microsoft.Web/locations/', variables('location'),'/managedApis/', 'azuretables')]",
-                    "type": "Microsoft.Web/locations/managedApis"
-                },
-                 "parameterValues": {
-                    "storageaccount": "[parameters('storage_account_name')]",
-                    "sharedkey": "[listKeys(variables('storageAccountResourceId'), '2022-05-01').keys[0].value]"
-                },
-                "testLinks": [
-                    {
-                        "requestUri": "[concat('https://management.azure.com:443/subscriptions/', subscription().subscriptionId, '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/', parameters('connections_azuretables_name'), '/extensions/proxy/testConnection?api-version=2016-06-01')]",
-                        "method": "get"
-                    }
-                ]
             }
         }
     ],
