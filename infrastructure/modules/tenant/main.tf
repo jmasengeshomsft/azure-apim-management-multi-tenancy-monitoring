@@ -33,10 +33,12 @@ resource "azurerm_application_insights" "api_app_insights" {
   application_type    = "other"
 }
 
-resource "azurerm_role_assignment" "api_app_insights_reader" {
-  scope                = azurerm_application_insights.api_app_insights.id
-  role_definition_name = "Reader"
-  principal_id         = var.tenant_default_principal_id
+resource "azurerm_role_assignment" "array_api_app_insights_reader" {
+  count =   length(var.tenant_principal_ids)
+    scope                = azurerm_application_insights.api_app_insights.id
+    role_definition_name = var.tenant_principal_ids[count.index].role
+    principal_id         = var.tenant_principal_ids[count.index].principal_id
+    skip_service_principal_aad_check = false // var.tenant_principal_ids[count.index].skip_service_principal_aad_check
 }
 
 

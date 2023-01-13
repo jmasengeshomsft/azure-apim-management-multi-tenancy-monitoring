@@ -28,9 +28,14 @@ variable "law_workspace_id" {
     type        = string
 }
 
-variable "tenant_default_principal_id" {
+variable "tenant_principal_ids" {
     description = "User, Group, or Service Principal Id that will be granted Reader access to the API App Insights"
-    type        = string
+    type = list(object({
+        principal_id                     = string
+        role                             = string 
+        skip_service_principal_aad_check = bool                 
+    }))
+    default = []
 }
 
 variable "tenant_resource_group_name" {
