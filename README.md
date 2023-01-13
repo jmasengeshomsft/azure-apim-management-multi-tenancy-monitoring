@@ -5,7 +5,7 @@
 ## How to Deploy Locally
 
 - Navigate in the infrastucture directory
-- Create a file named **terraform.tfvars** and set the values as show below
+- Edit the file named **terraform.tfvars** and set the values as show below
 
 
         apim_rg             = "<apim resource group>"
