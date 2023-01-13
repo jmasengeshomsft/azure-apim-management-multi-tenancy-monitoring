@@ -129,7 +129,7 @@
 -   Total retention period – up to 7 years
 -   Archive period – (total retention period **minus** interactive retention period)
 
-![](media/f021798d35488aaed953337a16f28c1f.png)
+![image](https://user-images.githubusercontent.com/86074746/212337118-b9a7571c-b47d-41da-af53-ea7e900499ca.png)
 
 ### Restore Logs
 
@@ -150,14 +150,14 @@
 -   An AMPLS object can connect to **300 Log Analytics workspaces** and **1000 Application Insights** components at most.
 -   An Azure Monitor resource (Workspace or Application Insights component or Data Collection Endpoint) can connect to **5 AMPLS’** at most.
 
-![Diagram of AMPLS limits](media/4bb4ea9dba07ab2336763d24321ffe89.png)
+![image](https://user-images.githubusercontent.com/86074746/212337069-37bdf2c3-5801-4f42-b5cb-0cb8204ffa8d.png)
 
 ### Network Design
 
 -   AMPLS requires at least 11 IPs. Smallest supported IPv4 subnet is /27 *(27 allocatable IPs)*.
 -   Regional endpoints will require additional IP addresses. For example, Application Insight uses regional endpoints (e.g., eastus-8.in.applicationinsights.azure.com and japanwest-0.in.ai.monitor.azure.com). Each endpoint would be mapped to a private IP address. Careful planning on regional expansion is required to ensure enough space in the subnet.
 
-![Graphical user interface, text, application Description automatically generated](media/943713c3d790bf20885df2537ef78fbb.png)
+![image](https://user-images.githubusercontent.com/86074746/212337027-2c83c53a-7e84-47f7-a8b1-145f43e3028e.png)
 
 ### DNS
 
@@ -173,7 +173,7 @@
 -   **Private Only** - allows the virtual network to reach only Private Link resources (resources in the AMPLS). That's the most secure mode of work, preventing data exfiltration. To achieve that, traffic to Azure Monitor resources out of the AMPLS is blocked.
 -   **Open** - allows the virtual network to reach both Private Link resources and resources not in the AMPLS (if they accept traffic from public networks). While the Open access mode doesn't prevent data exfiltration, it still offers the other benefits of Private Links - traffic to Private Link resources is sent through private endpoints, validated, and sent over the Microsoft backbone. The Open mode is useful for a mixed mode of work (accessing some resources publicly and others over a Private Link), or during a gradual onboarding process.
 
-![Diagram of mixed access modes](media/0da22930516ff021ee309112c5c0689e.png)
+![image](https://user-images.githubusercontent.com/86074746/212336972-80bca119-50c7-435e-aa30-f291f32e2961.png)
 
 ### Design with Hub + Spoke
 
