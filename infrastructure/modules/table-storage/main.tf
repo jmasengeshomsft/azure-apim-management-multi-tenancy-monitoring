@@ -21,3 +21,18 @@ resource "azurerm_storage_table" "table_storage" {
   name                 = "ApimAlertsReferenceData01"
   storage_account_name = azurerm_storage_account.account.name
 }
+
+resource "azurerm_resource_group_template_deployment" "ref_data_logic_app" {
+  depends_on = [
+    azurerm_storage_account.account
+  ]
+  name                     = "ref-data-logic-app"
+  resource_group_name      = var.resource_group_name
+  deployment_mode          = "Incremental"
+  template_content         = file("${path.module}/arm-templates/create-reference-data-logic-app.json")
+  parameters_content       = jsonencode({
+    "connections_azuretables_name" = {
+      value = var.connections_azuretables_name
+    }
+  })
+}

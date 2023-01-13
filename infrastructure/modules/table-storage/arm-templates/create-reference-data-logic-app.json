@@ -1,0 +1,180 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_create_apim_api_reference_data_name": {
+            "defaultValue": "create-apim-api-ref-data",
+            "type": "String"
+        },
+        "connections_azuretables_name": {
+            "type": "String"
+        }
+    },
+    "variables": {
+        "location": "[resourceGroup().location]",
+        "tableStorageConnectionId": "[resourceId('Microsoft.Web/connections/', parameters('connections_azuretables_name'))]",
+        "logicAppsName": "[toLower( concat( parameters('workflows_create_apim_api_reference_data_name'), uniqueString(resourceGroup().id) ) )]"
+
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[variables('logicAppsName')]",
+            "location": "centralus",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "type": "Request",
+                            "kind": "Http",
+                            "inputs": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "resourceUri": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "dataVersion": {
+                                            "type": "string"
+                                        },
+                                        "eventTime": {
+                                            "type": "string"
+                                        },
+                                        "eventType": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "metadataVersion": {
+                                            "type": "string"
+                                        },
+                                        "subject": {
+                                            "type": "string"
+                                        },
+                                        "topic": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "actions": {
+                        "Initialize_variable": {
+                            "runAfter": {},
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "API",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Initialize_variable_2": {
+                            "runAfter": {
+                                "Initialize_variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "InitializeVariable",
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "APIM_Instance",
+                                        "type": "string"
+                                    }
+                                ]
+                            }
+                        },
+                        "Insert_Entity_2": {
+                            "runAfter": {
+                                "Set_variable_2": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "body": {
+                                    "DefaultTenantEmail": "jmasengesho@microsoft.com",
+                                    "PartitionKey": "@{last(split(variables('APIM_Instance'), '/'))}",
+                                    "RowKey": "@{first(split(last(split(variables('API'),'/')),';'))}"
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['azuretables']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/Tables/@{encodeURIComponent('ApimAlertsReferenceData01')}/entities"
+                            }
+                        },
+                        "Set_variable": {
+                            "runAfter": {
+                                "Initialize_variable_2": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                                "name": "API",
+                                "value": "@{triggerBody()[0]?['subject']}"
+                            }
+                        },
+                        "Set_variable_2": {
+                            "runAfter": {
+                                "Set_variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "SetVariable",
+                            "inputs": {
+                                "name": "APIM_Instance",
+                                "value": "@{triggerBody()[0]?['topic']}"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azuretables": {
+                                "connectionId": "[variables('tableStorageConnectionId')]",
+                                "connectionName": "AzureTablesConnection",
+                                "id": "[concat('/subscriptions/', subscription().subscriptionId,'/providers/Microsoft.Web/locations/', variables('location'),'/managedApis/', 'azuretables')]"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "logicAppsResourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Logic/workflows', variables('logicAppsName'))]"
+        },
+        "logicAppsCallBackUrl": {
+            "type": "string",
+            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', variables('logicAppsName')), '/triggers/manual'), '2016-06-01').value]"
+        }
+    }
+}

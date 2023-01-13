@@ -15,6 +15,11 @@ variable "resource_group_name" {
     type        = string
 }
 
+variable "connections_azuretables_name" {
+    description = "The storage account table connection name"
+    type        = string
+}
+
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   default     =  {
