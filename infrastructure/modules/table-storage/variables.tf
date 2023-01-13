@@ -25,6 +25,10 @@ variable "azurerm_eventgrid_subscription_name" {
     type        = string
 }
 
+variable "default_admin_email" {
+    description = "Default Admin Email Address"
+    type        = string
+}
 
 variable "subscription_scope_id" {
     description = "The scope of the event grid subscription"

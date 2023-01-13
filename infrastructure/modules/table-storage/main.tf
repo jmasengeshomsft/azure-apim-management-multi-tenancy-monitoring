@@ -33,6 +33,9 @@ resource "azurerm_resource_group_template_deployment" "ref_data_logic_app" {
   parameters_content       = jsonencode({
     "connections_azuretables_name" = {
       value = var.connections_azuretables_name
+    },
+    "default_admin_email" = {
+      value = var.default_admin_email
     }
   })
 }
