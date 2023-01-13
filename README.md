@@ -12,6 +12,8 @@
         apim_region         = "<apim location>"
         apim_name           = "<apim instance nae>"
         admin_email_address = "<default email to sent alerts in dev in conjuction with a logic app>"
+        reference_data_storage_account_name = "No existing storage account to hold reference data"
+
 
         //tenant-a 
         tenant_a_default_principal_id = "<A user, group object or service principal client Id to give accesss to the app insights>"
