@@ -32,10 +32,12 @@ module "reference_data_table_storage" {
 
 //logic app action group
 module "logic_app_action_group" {
+  depends_on = [
+    module.reference_data_table_storage
+  ]
   source              = "./modules/action-group/"
   email_address       = var.admin_email_address
   resource_group_name = data.azurerm_api_management.apim_instance.resource_group_name
-  storage_account_name = module.reference_data_table_storage.storage_account.name
   connections_azuretables_name = "AzureTablesConnection"
   apim_instance_name = data.azurerm_api_management.apim_instance.name
 }

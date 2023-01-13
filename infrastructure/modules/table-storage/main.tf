@@ -37,6 +37,9 @@ resource "azurerm_resource_group_template_deployment" "ref_data_logic_app" {
     "default_admin_email" = {
       value = var.default_admin_email
     }
+    "storage_account_name" = {
+      value = azurerm_storage_account.account.name
+    }
   })
 }
 
