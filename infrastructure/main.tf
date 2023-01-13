@@ -42,6 +42,21 @@ module "logic_app_action_group" {
   apim_instance_name = data.azurerm_api_management.apim_instance.name
 }
 
+module "multi_app_insights_query_alert" {
+  source                     = "./modules/multi-resource-alert/"
+  alert_rule_name            = "ALL_SUB-APP-INSIGHTS-QUERY-ALERTS"
+  alert_rule_query           = <<-QUERY
+                                  AppRequests
+                                  | where AppRoleName contains "${data.azurerm_api_management.apim_instance.name}" and ResultCode !in (200,201)
+                                  | project ApiName = tostring(split(OperationName, ";")[0]), OperationName, DurationMs, ResultCode, AppRoleName, _ResourceId
+                                QUERY
+  dimension_name             = "Occurence"
+  location                   = data.azurerm_api_management.apim_instance.location
+  resource_group_name        = data.azurerm_api_management.apim_instance.resource_group_name
+  app_insights_scope         = ["/subscriptions/${data.azurerm_client_config.current.subscription_id}"]
+  logic_apps_action_group_id = module.logic_app_action_group.action_group.id
+}
+
 //tenant or team A
 resource "azurerm_resource_group" "tenant_a_rg" {
   name     = var.tenant_a_rg
@@ -128,20 +143,7 @@ module "team_b_api" {
 # }
 
 
-module "multi_app_insights_query_alert" {
-  source                     = "./modules/multi-resource-alert/"
-  alert_rule_name            = "ALL_SUB-APP-INSIGHTS-QUERY-ALERTS"
-  alert_rule_query           = <<-QUERY
-                                  AppRequests
-                                  | where AppRoleName contains "${data.azurerm_api_management.apim_instance.name}" and ResultCode !in (200,201)
-                                  | project ApiName = tostring(split(OperationName, ";")[0]), OperationName, DurationMs, ResultCode, AppRoleName, _ResourceId
-                                QUERY
-  dimension_name             = "Occurence"
-  location                   = data.azurerm_api_management.apim_instance.location
-  resource_group_name        = data.azurerm_api_management.apim_instance.resource_group_name
-  app_insights_scope         = ["/subscriptions/${data.azurerm_client_config.current.subscription_id}"]
-  logic_apps_action_group_id = module.logic_app_action_group.action_group.id
-}
+
 
 
 
