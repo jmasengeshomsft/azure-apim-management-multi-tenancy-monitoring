@@ -19,6 +19,8 @@ resource "azurerm_log_analytics_workspace" "main_law" {
   retention_in_days   = 30
 }
 
+
+
 module "reference_data_table_storage" {
   source                                  = "./modules/table-storage/"
   storage_account_name                    = var.reference_data_storage_account_name
@@ -63,11 +65,28 @@ resource "azurerm_resource_group" "tenant_a_rg" {
   location = var.tenant_a_rg_location
 }
 
-data "azuread_service_principal" "team_a_grafana_service_principal" {
-  application_id = var.tenant_a_grafana_principal_id
+data "azuread_application" "tenant_a_grafana_app" {
+  display_name = var.tenant_a_grafana_app_name
 }
 
+data "azuread_service_principal" "team_a_grafana_service_principal" {
+  application_id = data.azuread_application.tenant_a_grafana_app.application_id
+}
+
+resource "azurerm_role_assignment" "grafana_tenant_a_reader_log_analytics_workspace" {
+    scope                            = azurerm_log_analytics_workspace.main_law.id
+    role_definition_name             = "Reader"
+    principal_id                     =data.azuread_service_principal.team_a_grafana_service_principal.object_id
+    skip_service_principal_aad_check = false 
+}
+
+
 module "tenant_a" {
+  depends_on = [
+    module.reference_data_table_storage,
+    module.multi_app_insights_query_alert,
+    azurerm_log_analytics_workspace.main_law
+  ]
   source                      = "./modules/tenant/"
   tenant_name                 = "tenant-a"
   product_name                = "tenant-a-product"
@@ -94,7 +113,7 @@ module "tenant_a" {
 //Conference API
 module "team_a_api" {
   source                           = "./modules/tenant-api/"
-  api_name                         = "team-a-conference"
+  api_name                         = "team-a-conference-api"
   api_service_url                  = "https://conferenceapi.azurewebsites.net"
   api_path                         = "conference"
   api_swagger_link                 = "https://conferenceapi.azurewebsites.net/?format=json"
@@ -111,11 +130,28 @@ resource "azurerm_resource_group" "tenant_b_rg" {
   location = var.tenant_b_rg_location
 }
 
-data "azuread_service_principal" "team_b_grafana_service_principal" {
-  application_id = var.tenant_b_grafana_principal_id
+data "azuread_application" "tenant_b_grafana_app" {
+  display_name = var.tenant_b_grafana_app_name
 }
 
+data "azuread_service_principal" "team_b_grafana_service_principal" {
+  application_id = data.azuread_application.tenant_b_grafana_app.application_id
+}
+
+resource "azurerm_role_assignment" "grafana_tenant_b_reader_log_analytics_workspace" {
+    scope                            = azurerm_log_analytics_workspace.main_law.id
+    role_definition_name             = "Reader"
+    principal_id                     = data.azuread_service_principal.team_b_grafana_service_principal.object_id
+    skip_service_principal_aad_check = false 
+}
+
+
 module "tenant_b" {
+   depends_on = [
+    module.reference_data_table_storage,
+    module.multi_app_insights_query_alert,
+    azurerm_log_analytics_workspace.main_law
+  ]
   source                      = "./modules/tenant/"
   tenant_name                 = "tenant-b"
   product_name                = "tenant-b-product"
@@ -142,7 +178,7 @@ module "tenant_b" {
 //PetStore API
 module "team_b_api" {
   source                           = "./modules/tenant-api/"
-  api_name                         = "team-b-petstore"
+  api_name                         = "team-b-petstore-api"
   api_service_url                  = "https://petstore.swagger.io/v2"
   api_path                         = "petstore"
   api_swagger_link                 = "https://petstore.swagger.io/v2/swagger.json"
