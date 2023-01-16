@@ -78,7 +78,7 @@ The implementation becomes straightforward if we treat API developers as tenants
 -   Azure Resource Group
 -   AAD RBAC
     -   AAD Group
-    -   AAD Service Accounts
+    -   AAD Service Principal Accounts
 -   Azure Monitor
     -   Application Insights
     -   Alerts
@@ -114,7 +114,7 @@ Platform alert behaviour:
 
 ## Tenant RBAC Configuration
 
-There are two types of accesses needed for each tenant:
+There are three types of accesses needed for each tenant:
 
 -   **AAD tenant group**: To access Azure Monitor logs in Azure Portal. No individual user is given access to a tenant RG; they must be added to the group.
 -   **AAD Service Principal Accounts**: To access Azure Monitor logs programmatically with external systems. An example is Grafana. To query tenant logs programmatically, a tenant service account need:
