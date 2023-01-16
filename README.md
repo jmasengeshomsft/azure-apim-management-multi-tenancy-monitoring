@@ -67,6 +67,62 @@
 |    |           |                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 |    |           |                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
+# Tenancy Model
+
+The implementation becomes straightforward if we treat API developers as tenants on the APIM platform. A tenant is a group of users that shares one or many APIs without any access boundary. A tenant consists of:
+
+-   APIM Product
+-   APIM Group
+-   APIs
+-   APIM Policies
+-   Azure Resource Group
+-   AAD RBAC
+    -   AAD Group
+    -   AAD Service Accounts
+-   Azure Monitor
+    -   Application Insights
+    -   Alerts
+    -   Action Group
+    -   Alerts Processing Rules
+
+## Two types of Alerts
+
+In order to minimize the number of alerts, we will use multi-resources and multi-series alerts which can target many resources and dimensions at scale. These alerts are owned by the platform team and are handled by a central action group which plays a broadcast role.
+
+### Tenant alerts:
+
+<img width="800" alt="image" src="https://user-images.githubusercontent.com/86074746/212762994-6c8214f4-c79e-459d-8a73-85d3b81c8d4c.png">
+
+Tenant alert behaviour:
+
+-   Targets one or several APIs belonging to the same tenant.
+    -   Requires a tenant action group.
+    -   Increases as the number of APIs increases.
+    -   Can be tagged and billed to a tenant team easily
+    
+### Platform alerts
+
+<img width="812" alt="image" src="https://user-images.githubusercontent.com/86074746/212763089-244e4f01-5ace-47ee-8430-a66792e3eb52.png">
+
+Platform alert behaviour:
+
+-   Targets all APIs logs.
+    -   Uses the platform action group.
+    -   Requires an action that can filter and route alerts to appropriate tenants.
+    -   Stays the same as the number of APIs increases.
+    -   Requires additional logic to tenant charge back.
+
+## Tenant RBAC Configuration
+
+There are two types of accesses needed for each tenant:
+
+-   **AAD tenant group**: To access Azure Monitor logs in Azure Portal. No individual user is given access to a tenant RG; they must be added to the group.
+-   **AAD Service Principal Accounts**: To access Azure Monitor logs programmatically with external systems. An example is Grafana. To query tenant logs programmatically, a tenant service account need:
+    -   Reader to the Log Analytics Workspace. Reader role does not allow log data access; its needed to **list** the LAW.
+    -   **Log Analytics Reader** to the tenant App insights or the entire tenant RG
+-   **AAD Managed Identities**: In case we need to read logs from within Azure. Managed Identities are easier to use than Service Principals.
+
+
 # Appendix
 
 ## Appendix A: Application Insights Design Considerations
