@@ -19,8 +19,6 @@ resource "azurerm_log_analytics_workspace" "main_law" {
   retention_in_days   = 30
 }
 
-
-
 module "reference_data_table_storage" {
   source                                  = "./modules/table-storage/"
   storage_account_name                    = var.reference_data_storage_account_name
