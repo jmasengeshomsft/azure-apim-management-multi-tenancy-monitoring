@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="PjX6TMRhEjkoH-ikMJ8E" name="Page-1">
-        <mxGraphModel dx="1954" dy="688" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+        <mxGraphModel dx="1954" dy="1142" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -190,13 +190,13 @@
                 <mxCell id="154" value="" style="whiteSpace=wrap;html=1;shadow=0;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="187.75" y="442.75" width="110" height="99.5" as="geometry"/>
                 </mxCell>
-                <mxCell id="157" value="Tenant C RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                <mxCell id="157" value="Tenant 3 RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="189.75" y="548" width="80" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="158" value="Tenant B RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                <mxCell id="158" value="Tenant 2 RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="187.75" y="385.25" width="80" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="159" value="Tenant A RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                <mxCell id="159" value="Tenant 1 RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="187.75" y="228" width="80" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="161" value="" style="whiteSpace=wrap;html=1;shadow=0;fillColor=none;" vertex="1" parent="1">
@@ -322,10 +322,43 @@
                     <mxGeometry x="41.75" y="40" width="240" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="212" value="&lt;font style=&quot;font-size: 24px&quot;&gt;Single Resource Alert&amp;nbsp;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="44.75" y="890" width="250" height="20" as="geometry"/>
+                    <mxGeometry x="44.75" y="860" width="250" height="20" as="geometry"/>
                 </mxCell>
                 <mxCell id="213" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Resource_Groups.svg;shadow=0;fillColor=none;" vertex="1" parent="1">
                     <mxGeometry x="284.5" y="629.5" width="25.5" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="214" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Resource_Groups.svg;shadow=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="272.25" y="1029" width="25.5" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="215" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Resource_Groups.svg;shadow=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="272.25" y="1187" width="25.5" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="216" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Resource_Groups.svg;shadow=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="272.25" y="1338.5" width="25.5" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="217" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Resource_Groups.svg;shadow=0;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="269.75" y="1534.75" width="25.5" height="24" as="geometry"/>
+                </mxCell>
+                <mxCell id="219" value="Tenant 1 RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="176.75" y="1140" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="220" value="Tenant 2 RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="179.75" y="1298.5" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="221" value="Tenant 3 RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="190" y="1451.25" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="222" value="Tenant n RG" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="181.75" y="1640" width="80" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="224" value="&lt;span style=&quot;color: rgba(0 , 0 , 0 , 0) ; font-family: monospace ; font-size: 0px&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22Tenant%201%20RG%22%20style%3D%22text%3Bhtml%3D1%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3Bresizable%3D0%3Bpoints%3D%5B%5D%3Bautosize%3D1%3BstrokeColor%3Dnone%3BfillColor%3Dnone%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22176.75%22%20y%3D%221140%22%20width%3D%2280%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=24;" vertex="1" parent="1">
+                    <mxGeometry x="510" y="1090" width="20" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="226" value="Tenant 1 Alert" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="489.25" y="1110" width="90" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="227" value="Tenant 1 Action Group" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="629" y="1110" width="130" height="20" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
