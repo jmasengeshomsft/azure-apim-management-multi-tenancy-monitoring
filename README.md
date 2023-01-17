@@ -37,7 +37,7 @@
 
 # Tenancy Model
 
-The implementation becomes straightforward if we treat API developers as tenants on the APIM platform. A tenant is a group of users that shares one or many APIs without any access boundary. A tenant consists of:
+The implementation becomes straightforward if we treat API developers as tenants on the APIM platform. **A tenant is a group of users that shares one or many APIs without any access boundary**. A tenant consists of:
 
 -   APIM Product
 -   APIM Group
