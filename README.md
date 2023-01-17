@@ -52,6 +52,9 @@ The implementation becomes straightforward if we treat API developers as tenants
     -   Alerts
     -   Action Group
     -   Alerts Processing Rules
+    
+    <img width="816" alt="image" src="https://user-images.githubusercontent.com/86074746/212951784-618158c8-479c-4e42-b037-536ebdc44dcd.png">
+
 
 ## Two types of Alerts
 
