@@ -30,3 +30,7 @@
         terraform init
         terraform plan
         terraform apply -auto-approve
+
+In the APIM resource group, you will get these new resources after a successful deployment (names will vary based your inputs)
+
+<img width="997" alt="image" src="https://user-images.githubusercontent.com/86074746/213020400-9a3dfeed-494d-47db-95b8-24e8f1f50a0b.png">
