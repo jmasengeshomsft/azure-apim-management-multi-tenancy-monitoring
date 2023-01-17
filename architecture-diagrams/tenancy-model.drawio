@@ -1,22 +1,22 @@
 <mxfile host="65bd71144e">
     <diagram id="PLmIlb0-qYM0k5oFZVpn" name="Page-1">
-        <mxGraphModel dx="1954" dy="1142" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+        <mxGraphModel dx="1954" dy="688" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="45" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
+                <mxCell id="45" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="560" y="310" width="510" height="180" as="geometry"/>
                 </mxCell>
                 <mxCell id="12" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="560" y="548" width="510" height="180" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/management_governance/Alerts.svg;" parent="1" vertex="1">
+                <mxCell id="4" value="Alerts" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/management_governance/Alerts.svg;" parent="1" vertex="1">
                     <mxGeometry x="678" y="605" width="67" height="56.00000000000001" as="geometry"/>
                 </mxCell>
-                <mxCell id="2" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/devops/Application_Insights.svg;" parent="1" vertex="1">
+                <mxCell id="2" value="App Insights" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/devops/Application_Insights.svg;" parent="1" vertex="1">
                     <mxGeometry x="600" y="598" width="44" height="63" as="geometry"/>
                 </mxCell>
-                <mxCell id="5" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/management_governance/Metrics.svg;" parent="1" vertex="1">
+                <mxCell id="5" value="Metrics" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/management_governance/Metrics.svg;" parent="1" vertex="1">
                     <mxGeometry x="780" y="596" width="60" height="65" as="geometry"/>
                 </mxCell>
                 <mxCell id="6" value="Enterprise Applications&lt;br&gt;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/identity/App_Registrations.svg;" parent="1" vertex="1">
@@ -58,7 +58,7 @@
                 <mxCell id="24" value="APIs" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="250" y="640" width="40" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="44" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="26" target="22">
+                <mxCell id="44" style="edgeStyle=none;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="26" target="22" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="26" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/integration/API_Management_Services.svg;fillColor=none;" parent="1" vertex="1">
@@ -73,7 +73,7 @@
                 <mxCell id="33" value="&lt;b style=&quot;font-family: &amp;#34;helvetica&amp;#34;&quot;&gt;Azure Active Directory&lt;/b&gt;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/identity/Azure_Active_Directory.svg;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="443" y="310" width="70" height="64" as="geometry"/>
                 </mxCell>
-                <mxCell id="47" style="edgeStyle=none;html=1;" edge="1" parent="1">
+                <mxCell id="47" style="edgeStyle=none;html=1;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="380" y="420" as="sourcePoint"/>
                         <mxPoint x="560" y="420" as="targetPoint"/>
@@ -82,19 +82,19 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="48" style="edgeStyle=none;html=1;entryX=-0.001;entryY=0.711;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+                <mxCell id="48" style="edgeStyle=none;html=1;entryX=-0.001;entryY=0.711;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="380.51" y="642.0211764705882" as="sourcePoint"/>
                         <mxPoint x="559.9999999999998" y="640" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="52" value="Tenant Resource Group" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                <mxCell id="52" value="Tenant Resource Group" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
                     <mxGeometry x="560" y="517.5" width="140" height="20" as="geometry"/>
                 </mxCell>
-                <mxCell id="55" value="AAD Group&lt;span style=&quot;white-space: pre&quot;&gt;&#9;&lt;/span&gt;" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/identity/Groups.svg;" vertex="1" parent="1">
+                <mxCell id="55" value="Action Group" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/identity/Groups.svg;" parent="1" vertex="1">
                     <mxGeometry x="892" y="598" width="68" height="56.00000000000001" as="geometry"/>
                 </mxCell>
-                <mxCell id="56" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Tags.svg;" vertex="1" parent="1">
+                <mxCell id="56" value="tags" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/azure2/general/Tags.svg;" parent="1" vertex="1">
                     <mxGeometry x="980" y="550.77" width="25.85" height="28" as="geometry"/>
                 </mxCell>
             </root>
