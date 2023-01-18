@@ -13,7 +13,7 @@ You must have a healthy instance of APIM in order to work this these demos. This
 ### AAD Entities
 
 - Navigate in the **infrastucture/aad-entities** directory
-- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Create a file name **terraform.tfvars** using the example provided under **infrastructure/terraform.tfvarsexample**. You can also provide values in the variables.tf file in this folder. 
 - Run
 
        terraform init
@@ -24,7 +24,7 @@ You must have a healthy instance of APIM in order to work this these demos. This
 ### APIM Monitoring Resources
 
 - Navigate in the **infrastucture/apim-monitoring** directory
-- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Create a file name **terraform.tfvars** using the example provided under **infrastructure/terraform.tfvarsexample**. You can also provide values in the variables.tf file in this folder. 
 - Run
 
        terraform init
@@ -36,7 +36,7 @@ You must have a healthy instance of APIM in order to work this these demos. This
 ### APIM Teams (Tenants or Products)
 
 - Navigate in the **infrastucture/tenants** directory
-- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Create a file name **terraform.tfvars** using the example provided under **infrastructure/terraform.tfvarsexample**. You can also provide values in the variables.tf file in this folder. 
 - Run
 
        terraform init
@@ -46,7 +46,7 @@ You must have a healthy instance of APIM in order to work this these demos. This
 ### APIs
 
 - Navigate in the **infrastucture/aad-entities** directory
-- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Create a file name **terraform.tfvars** using the example provided under **infrastructure/terraform.tfvarsexample**. You can also provide values in the variables.tf file in this folder. 
 - Run
 
        terraform init
