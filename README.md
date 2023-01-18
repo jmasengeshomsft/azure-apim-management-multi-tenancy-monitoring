@@ -18,6 +18,8 @@ Follow these links for instructions:
 - [APIM Teams](https://github.com/jmasengeshomsft/azure-apim-management-multi-tenancy-monitoring/tree/main/infrastructure#apim-teams-tenants-or-products)
 - [APIs](https://github.com/jmasengeshomsft/azure-apim-management-multi-tenancy-monitoring/tree/main/infrastructure#apis)
 
+![image](https://user-images.githubusercontent.com/86074746/213284918-623b9d82-3a60-449c-8609-b2bc8b627317.png)
+
 
 
 # Tenancy Model
