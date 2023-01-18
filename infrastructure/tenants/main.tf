@@ -51,7 +51,7 @@ module "tenant_a" {
 
 resource "azurerm_monitor_action_group" "tenant_a_action_group" {
   name                = "tenant-a-email-action-group"
-  resource_group_name = var.tenant_a_rg
+  resource_group_name = module.tenant_a.tenant_rg.name
   short_name          = "tenant-a-ag"
 
   email_receiver {
@@ -104,7 +104,7 @@ module "tenant_b" {
 
 resource "azurerm_monitor_action_group" "tenant_b_action_group" {
   name                = "tenant-b-email-action-group"
-  resource_group_name = var.tenant_b_rg
+  resource_group_name = module.tenant_b.tenant_rg.name
   short_name          = "tenant-b-ag"
 
   email_receiver {
@@ -117,7 +117,7 @@ resource "azurerm_monitor_action_group" "tenant_b_action_group" {
 
 resource "azurerm_monitor_metric_alert" "requests" {
   name                = "tenant-b-request-count-alert"
-  resource_group_name = var.tenant_b_rg
+  resource_group_name = module.tenant_b.tenant_rg.name
   scopes              = [module.tenant_b.app_insights.id]
   description         = "Action will be triggered when request countt is greater than 5."
   frequency           = "PT1M"

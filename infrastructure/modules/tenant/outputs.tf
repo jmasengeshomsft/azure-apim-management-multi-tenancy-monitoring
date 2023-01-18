@@ -11,4 +11,8 @@ output "app_insights" {
   value = azurerm_application_insights.api_app_insights
 }
 
+output "tenant_rg" {
+  value = azurerm_resource_group.tenant_rg
+}
+
 
