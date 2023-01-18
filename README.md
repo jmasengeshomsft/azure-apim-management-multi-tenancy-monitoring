@@ -4,7 +4,7 @@
 
 ## How to Deploy Locally
 
-This demo project is built in Terraform and contains three configurations. 
+This demo project is built in Terraform and contains three configurations. We assumed that you already have an APIM instance in your tenant.
 
 - **AAD Entities**: To deploy Azure Active Directory entities for tenants. Example: Service Principals, AAD Groups, etc
 - **APIM-Monitoring**: To deploy global alerts and action group for the entire APIM. Also, storage account for API reference data is created
@@ -45,7 +45,7 @@ This demo project is built in Terraform and contains three configurations.
 
 # Tenancy Model
 
-The implementation becomes straightforward if we treat API developers as tenants on the APIM platform. **A tenant is a group of users that shares one or many APIs without any access boundary**. A tenant consists of:
+An APIM instance is being used accross an enterprise and its hosts many APIs from different teams.The implementation becomes straightforward if we treat API developers as tenants on the APIM platform. **A tenant is a group of users that shares one or many APIs without any access boundary**. A tenant consists of:
 
 -   APIM Product
 -   APIM Group
