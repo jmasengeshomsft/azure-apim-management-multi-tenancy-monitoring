@@ -4,6 +4,14 @@
 
 ## How to Deploy Locally
 
+This demo project is built in Terraform and contains three configurations. 
+
+- **AAD Entities**: To deploy Azure Active Directory entities for tenants. Example: Service Principals, AAD Groups, etc
+- **APIM-Monitoring**: To deploy global alerts and action group for the entire APIM. Also, storage account for API reference data is created
+- **Tenants**: To deploy tenants (tenant-a and tenant-b)
+- **APIS**: To deploy APIs under tenants and products
+
+### Instructions:
 - Navigate in the infrastucture directory
 - Edit the file named **terraform.tfvars** and set the values as shown below
 
