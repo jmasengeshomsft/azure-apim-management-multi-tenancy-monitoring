@@ -8,9 +8,54 @@ You must have a healthy instance of APIM in order to work this these demos. This
 - **Tenants**: To deploy tenants (tenant-a and tenant-b)
 - **APIS**: To deploy APIs under tenants and products
 
-### Instructions:
-- Navigate in the infrastucture directory
-- Edit the file named **terraform.tfvars** and set the values as shown below
+## Instructions:
+
+### AAD Entities
+
+- Navigate in the **infrastucture/aad-entities** directory
+- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Run
+
+       terraform init
+       terraform plan
+       terraform apply -auto-approve
+
+
+### APIM Monitoring Resources
+
+- Navigate in the **infrastucture/apim-monitoring** directory
+- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Run
+
+       terraform init
+       terraform plan
+       terraform apply -auto-approve
+
+
+
+### APIM Teams (Tenants or Products)
+
+- Navigate in the **infrastucture/tenants** directory
+- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Run
+
+       terraform init
+       terraform plan
+       terraform apply -auto-approve
+
+### APIs
+
+- Navigate in the **infrastucture/aad-entities** directory
+- Create a file name **terraform.tfvars** using the example provided under infrastructure/terraform.tfvarsexample. You can also provide values in the variables.tf file in this folder. 
+- Run
+
+       terraform init
+       terraform plan
+       terraform apply -auto-approve
+
+
+
+An example of variables for each folder. 
 
 
         apim_rg                             = "<apim resource group>"
@@ -35,12 +80,6 @@ You must have a healthy instance of APIM in order to work this these demos. This
         tenant_b_rg                         = "<Team B resource group>"
         tenant_b_rg_location                = "<Team B resource group location>"
         
-  - Still in the Infrastructure directory, run 
-  
-        terraform init
-        terraform plan
-        terraform apply -auto-approve
-
 
 In the APIM resource group, you will get these new resources after a successful deployment (names will vary based your inputs)
 
