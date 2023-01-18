@@ -5,6 +5,15 @@ resource "azurerm_resource_group" "tenant_rg" {
   tags     = var.tags
 }
 
+resource "azurerm_role_assignment" "rg_assigments" {
+  count =   length(var.tenant_principal_ids)
+    scope                = azurerm_resource_group.tenant_rg.id
+    role_definition_name = var.tenant_principal_ids[count.index].role
+    principal_id         = var.tenant_principal_ids[count.index].principal_id
+    skip_service_principal_aad_check = false 
+}
+
+
 resource "azurerm_api_management_group" "api_group" {
   name                = var.group_name
   api_management_name = var.apim_name
@@ -41,12 +50,12 @@ resource "azurerm_application_insights" "api_app_insights" {
   tags                = var.tags
 }
 
-resource "azurerm_role_assignment" "array_api_app_insights_reader" {
-  count =   length(var.tenant_principal_ids)
-    scope                = azurerm_application_insights.api_app_insights.id
-    role_definition_name = var.tenant_principal_ids[count.index].role
-    principal_id         = var.tenant_principal_ids[count.index].principal_id
-    skip_service_principal_aad_check = false 
-}
+# resource "azurerm_role_assignment" "array_api_app_insights_reader" {
+#   count =   length(var.tenant_principal_ids)
+#     scope                = azurerm_application_insights.api_app_insights.id
+#     role_definition_name = var.tenant_principal_ids[count.index].role
+#     principal_id         = var.tenant_principal_ids[count.index].principal_id
+#     skip_service_principal_aad_check = false 
+# }
 
 
