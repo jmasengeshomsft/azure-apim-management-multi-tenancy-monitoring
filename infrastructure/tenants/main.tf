@@ -46,6 +46,19 @@ module "tenant_a" {
                                 ]
   tenant_rg                   = var.tenant_a_rg
   tenant_location             = var.tenant_a_rg_location
+  tags                        = var.tenant_a_tags
+}
+
+resource "azurerm_monitor_action_group" "tenant_a_action_group" {
+  name                = "tenant-a-email-action-group"
+  resource_group_name = var.tenant_a_rg
+  short_name          = "tenant-a-ag"
+
+  email_receiver {
+    name          = "sendtoadmin"
+    email_address = var.tenant_a_default_email_address
+  }
+  tags            = var.tenant_a_tags
 }
 
 //TENANT B MODULE
@@ -86,4 +99,47 @@ module "tenant_b" {
                                 ]
   tenant_rg                   = var.tenant_b_rg
   tenant_location             = var.tenant_b_rg_location
+  tags                        = var.tenant_b_tags
+}
+
+resource "azurerm_monitor_action_group" "tenant_b_action_group" {
+  name                = "tenant-b-email-action-group"
+  resource_group_name = var.tenant_b_rg
+  short_name          = "tenant-b-ag"
+
+  email_receiver {
+    name          = "sendtoadmin"
+    email_address = var.tenant_b_default_email_address
+  }
+  tags            = var.tenant_b_tags
+}
+
+
+resource "azurerm_monitor_metric_alert" "requests" {
+  name                = "tenant-b-request-count-alert"
+  resource_group_name = var.tenant_b_rg
+  scopes              = [module.tenant_b.app_insights.id]
+  description         = "Action will be triggered when request countt is greater than 5."
+  frequency           = "PT1M"
+  window_size         = "PT5M"
+
+  criteria {
+    metric_namespace = "microsoft.insights/components"
+    metric_name      = "performanceCounters/requestsPerSecond"
+    aggregation      = "Average"
+    operator         = "GreaterThan"
+    threshold        = 3
+
+    dimension {
+      name     = "cloud/roleInstance"
+      operator = "Include"
+      values   = ["*"]
+    }
+  }
+
+  action {
+    action_group_id = azurerm_monitor_action_group.tenant_b_action_group.id
+  }
+
+  tags        = var.tenant_b_tags
 }

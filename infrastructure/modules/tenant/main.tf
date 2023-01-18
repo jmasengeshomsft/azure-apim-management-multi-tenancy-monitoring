@@ -2,6 +2,7 @@
 resource "azurerm_resource_group" "tenant_rg" {
   name     = var.tenant_rg
   location = var.tenant_location
+  tags     = var.tags
 }
 
 resource "azurerm_api_management_group" "api_group" {
@@ -37,6 +38,7 @@ resource "azurerm_application_insights" "api_app_insights" {
   workspace_id        = var.law_workspace_id
   resource_group_name = azurerm_resource_group.tenant_rg.name
   application_type    = "other"
+  tags                = var.tags
 }
 
 resource "azurerm_role_assignment" "array_api_app_insights_reader" {

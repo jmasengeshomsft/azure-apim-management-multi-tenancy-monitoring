@@ -47,3 +47,10 @@ variable "tenant_location" {
     description = "The tenant location"
     type        = string
 }
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  default     =  {
+  }
+}
+
