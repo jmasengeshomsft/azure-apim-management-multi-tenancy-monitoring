@@ -21,8 +21,8 @@ resource "azurerm_api_management_api" "tenant_api" {
   protocols           = ["https", "http"]
 
   import {
-    content_format = "swagger-link-json"
-    content_value  = var.api_swagger_link
+    content_format = var.content_type//"swagger-link-json"
+    content_value  = var.content_link
   }
 }
 

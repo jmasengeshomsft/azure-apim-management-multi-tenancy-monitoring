@@ -14,8 +14,13 @@ variable "api_path" {
     type        = string
 }
 
-variable "api_swagger_link" {
-    description = "The API Swagger_link"
+variable "content_link" {
+    description = "The API content link"
+    type        = string
+}
+
+variable "content_type" {
+    description = "The API content Type"
     type        = string
 }
 

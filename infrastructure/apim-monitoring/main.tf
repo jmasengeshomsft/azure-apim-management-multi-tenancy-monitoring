@@ -5,11 +5,14 @@ data "azurerm_api_management" "apim_instance" {
 }
 
 resource "azurerm_log_analytics_workspace" "main_law" {
-  name                = "apim-multi-tenancy-law"
-  location            = data.azurerm_api_management.apim_instance.location
-  resource_group_name = data.azurerm_api_management.apim_instance.resource_group_name
-  sku                 = "PerGB2018"
-  retention_in_days   = 30
+  name                            = "apim-multi-tenancy-law"
+  location                        = data.azurerm_api_management.apim_instance.location
+  resource_group_name             = data.azurerm_api_management.apim_instance.resource_group_name
+  sku                             = "PerGB2018"
+  retention_in_days               = 30
+  allow_resource_only_permissions = true
+  internet_ingestion_enabled      = true
+  internet_query_enabled          = true
 }
 
 module "reference_data_table_storage" {
