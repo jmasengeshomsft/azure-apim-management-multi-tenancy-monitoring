@@ -38,9 +38,9 @@ variable "tenant_principal_ids" {
     default = []
 }
 
-variable "tenant_resource_group_name" {
-    description = "The tenant RG"
-    type        = string
+variable "tenant_rg" {
+  description = "The resource group for the tenant A team"
+  type        = string
 }
 
 variable "tenant_location" {

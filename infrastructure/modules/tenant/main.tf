@@ -1,3 +1,9 @@
+
+resource "azurerm_resource_group" "tenant_rg" {
+  name     = var.tenant_rg
+  location = var.tenant_location
+}
+
 resource "azurerm_api_management_group" "api_group" {
   name                = var.group_name
   api_management_name = var.apim_name
@@ -29,7 +35,7 @@ resource "azurerm_application_insights" "api_app_insights" {
   name                = "${var.tenant_name}-appinsights"
   location            = var.tenant_location
   workspace_id        = var.law_workspace_id
-  resource_group_name = var.tenant_resource_group_name
+  resource_group_name = azurerm_resource_group.tenant_rg.name
   application_type    = "other"
 }
 

@@ -29,17 +29,17 @@ variable "apim_resource_group_name" {
     type        = string
 }
 
-variable "product_id" {
+variable "tenant_product" {
     description = "The Product Id"
     type        = string
 }
 
-variable "app_insights_resource_id" {
+variable "tenant_ai_name" {
     description = "The AI Id"
     type        = string
 }
 
-variable "app_insights_instrumentation_key" {
-    description = "The AI Instrumentation Key"
+variable "tenant_rg" {
+    description = "The tenant resource group"
     type        = string
 }

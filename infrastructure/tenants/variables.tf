@@ -9,6 +9,16 @@ variable "apim_name" {
   type        = string
 }
 
+variable "law_name" {
+  description = "The name of the log analytics workspace"
+  type        = string
+}
+
+variable "law_rg" {
+  description = "The resource group of the log analytics workspace"
+  type        = string
+}
+
 variable "admin_email_address" {
   description = "The email to sent alerts to in top of the logic apps if desired"
   type        = string
@@ -46,11 +56,6 @@ variable "tenant_b_default_principal_id" {
   description = "The default principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
   type        = string
 }
-
-# variable "tenant_b_grafana_principal_id" {
-#   description = "The Grafana principal ID for tenant-a. A user, group, or service principal that will be granted Reader access to the API App Insights"
-#   type        = string
-# }
 
 variable "tenant_b_grafana_app_name" {
   description = "The Grafana app name for tenant B"

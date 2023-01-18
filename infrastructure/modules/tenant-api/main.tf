@@ -1,3 +1,15 @@
+
+data "azurerm_api_management_product" "tenant_product" {
+  product_id          = var.tenant_product
+  api_management_name = var.apim_name
+  resource_group_name = var.apim_resource_group_name
+}
+
+data "azurerm_application_insights" "tenant_ai" {
+  name                = var.tenant_ai_name
+  resource_group_name = var.tenant_rg
+}
+
 resource "azurerm_api_management_api" "tenant_api" {
   name                = var.api_name
   resource_group_name = var.apim_resource_group_name
@@ -16,35 +28,20 @@ resource "azurerm_api_management_api" "tenant_api" {
 
 resource "azurerm_api_management_product_api" "product_api" {
   api_name            = azurerm_api_management_api.tenant_api.name
-  product_id          = var.product_id
+  product_id          = data.azurerm_api_management_product.tenant_product.product_id
   api_management_name = var.apim_name
   resource_group_name = var.apim_resource_group_name
 }
-
-
-# resource "azurerm_application_insights" "api_app_insights" {
-#   name                = "${azurerm_api_management_api.tenant_api.name}-appinsights"
-#   location            = var.tenant_location
-#   workspace_id        = var.law_workspace_id
-#   resource_group_name = var.tenant_resource_group_name
-#   application_type    = "other"
-# }
-
-# resource "azurerm_role_assignment" "api_app_insights_reader" {
-#   scope                = azurerm_application_insights.api_app_insights.id
-#   role_definition_name = "Reader"
-#   principal_id         = var.api_app_insights_reader_principal_id
-# }
 
 
 resource "azurerm_api_management_logger" "api_logger" {
   name                = "${azurerm_api_management_api.tenant_api.name}-logger"
   api_management_name = var.apim_name
   resource_group_name = var.apim_resource_group_name
-  resource_id         = var.app_insights_resource_id
+  resource_id         = data.azurerm_application_insights.tenant_ai.id
 
   application_insights {
-    instrumentation_key = var.app_insights_instrumentation_key
+    instrumentation_key = data.azurerm_application_insights.tenant_ai.instrumentation_key
   }
 }
 
