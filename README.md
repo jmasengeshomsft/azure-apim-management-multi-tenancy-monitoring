@@ -79,7 +79,7 @@ There are three types of accesses needed for each tenant:
 
 -   **AAD tenant group**: To access Azure Monitor logs in Azure Portal. No individual user is given access to a tenant RG; they must be added to the group.
 -   **AAD Service Principal Accounts**: To access Azure Monitor logs programmatically with external systems. An example is Grafana. To query tenant logs programmatically, a tenant service account need:
-    -   Reader to the Log Analytics Workspace. Reader role does not allow log data access; its needed to **list** the LAW.
+    -   **Reader** to the Log Analytics Workspace. Reader role does not allow log data access; its needed to **list** the LAW.
     -   **Log Analytics Reader** to the tenant App insights or the entire tenant RG
 -   **AAD Managed Identities**: In case we need to read logs from within Azure. Managed Identities are easier to use than Service Principals.
 
