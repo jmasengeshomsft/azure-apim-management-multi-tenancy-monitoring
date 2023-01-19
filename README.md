@@ -84,6 +84,12 @@ There are three types of accesses needed for each tenant:
 -   **AAD Managed Identities**: In case we need to read logs from within Azure. Managed Identities are easier to use than Service Principals.
 
 
+# Provisioning a new Tenant
+
+## Creating Tenant AAD Entities
+
+
+## Creating APIM Product/Group and Logger
 
 
 # Other Recommendations
