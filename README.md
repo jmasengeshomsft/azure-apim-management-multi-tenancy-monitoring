@@ -88,7 +88,7 @@ There are three types of accesses needed for each tenant:
 
 ## Creating Tenant AAD Entities
 
-In AAD, each tenants needs one group, service principals, or managed identities. The configuration to create tenants in AAD is under infrastructure/aad-entities.
+In AAD, each tenants needs one group, service principals, or managed identities. The configuration to create tenants in AAD is under infrastructure/aad-entities. 
 
         module "tenant-a-grafana-service-principal" {
           source         = "../modules/aad-service-principal/"
@@ -96,15 +96,64 @@ In AAD, each tenants needs one group, service principals, or managed identities.
           app_owners_ids = [data.azuread_client_config.current.object_id]
         }
 
-        module "tenant-b-grafana-service-principal" {
-          source         = "../modules/aad-service-principal/"
-          tenant_name    = var.tenant_b_name
-          app_owners_ids = [data.azuread_client_config.current.object_id]
+
+## Creating APIM Product/Group and Logger
+
+As described above, in APIM, we create a product and group for tenant. Outside of APIM, we create a resource group and an Application Insights resource with the proper role assignments. A sample tenant Terraform module:
+
+
+        resource "azurerm_resource_group" "tenant_rg" {
+          name     = var.tenant_rg
+          location = var.tenant_location
+          tags     = var.tags
+        }
+
+        resource "azurerm_role_assignment" "rg_assigments" {
+          count =   length(var.tenant_principal_ids)
+            scope                = azurerm_resource_group.tenant_rg.id
+            role_definition_name = var.tenant_principal_ids[count.index].role
+            principal_id         = var.tenant_principal_ids[count.index].principal_id
+            skip_service_principal_aad_check = false 
         }
 
 
+        resource "azurerm_api_management_group" "api_group" {
+          name                = var.group_name
+          api_management_name = var.apim_name
+          resource_group_name = var.apim_resource_group_name
+          display_name        = var.group_name
+          description         = var.group_name
+        }
 
-## Creating APIM Product/Group and Logger
+        resource "azurerm_api_management_product" "api_product" {
+          product_id            = var.product_name
+          api_management_name   = var.apim_name
+          resource_group_name   = var.apim_resource_group_name
+          display_name          = var.product_name
+          description           = var.product_name
+          subscription_required = true
+          subscriptions_limit   = 2
+          approval_required     = true
+          published             = true
+        }
+
+        resource "azurerm_api_management_product_group" "product_group" {
+          product_id          = azurerm_api_management_product.api_product.product_id
+          group_name          = azurerm_api_management_group.api_group.name
+          api_management_name = var.apim_name
+          resource_group_name = var.apim_resource_group_name
+        }
+
+        resource "azurerm_application_insights" "api_app_insights" {
+          name                = "${var.tenant_name}-appinsights"
+          location            = var.tenant_location
+          workspace_id        = var.law_workspace_id
+          resource_group_name = azurerm_resource_group.tenant_rg.name
+          application_type    = "other"
+          tags                = var.tags
+        }
+
+
 
 
 # Other Recommendations
