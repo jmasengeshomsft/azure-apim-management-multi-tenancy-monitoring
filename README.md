@@ -153,7 +153,32 @@ As described above, in APIM, we create a product and group for tenant. Outside o
           tags                = var.tags
         }
 
+An actual invocation of the above module for a tenant named "tenant-a"
 
+        module "tenant_a" { 
+          source                      = "../modules/tenant"
+          tenant_name                 = "tenant-a"
+          product_name                = "tenant-a-product"
+          group_name                  = "tenant-a-group"
+          apim_name                   = data.azurerm_api_management.apim_instance.name
+          apim_resource_group_name    = data.azurerm_api_management.apim_instance.resource_group_name
+          law_workspace_id            = data.azurerm_log_analytics_workspace.law.id
+          tenant_principal_ids        = [  
+                                          {
+                                            principal_id  = var.tenant_a_default_principal_id
+                                            role          = "Reader",
+                                            skip_service_principal_aad_check = true
+                                          },
+                                          {
+                                            principal_id  = data.azuread_service_principal.team_a_grafana_service_principal.object_id
+                                            role          = "Log Analytics Reader",
+                                            skip_service_principal_aad_check = true
+                                          }
+                                        ]
+          tenant_rg                   = var.tenant_a_rg
+          tenant_location             = var.tenant_a_rg_location
+          tags                        = var.tenant_a_tags
+        }
 
 
 # Other Recommendations
