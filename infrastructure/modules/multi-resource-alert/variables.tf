@@ -32,13 +32,13 @@ variable "logic_apps_action_group_id" {
 variable "evaluation_frequency" {
     description = "Rule evaluation frequency"
     type        = string
-    default     = "PT5M"
+    default     = "PT1M"
 }
 
 variable "window_duration" {
     description = "Rule window duration"
     type        = string
-    default     = "PT5M"
+    default     = "PT1M"
 }
 
 variable "app_insights_scope" {

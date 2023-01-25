@@ -213,7 +213,7 @@
                                                     "type": "SetVariable",
                                                     "inputs": {
                                                         "name": "MetricValue",
-                                                        "value": "@items('For_each')['metricValue']"
+                                                        "value": "@if(equals(items('For_each')['metricValue'], null),0, items('For_each')['metricValue'])"
                                                     }
                                                 }
                                             },
