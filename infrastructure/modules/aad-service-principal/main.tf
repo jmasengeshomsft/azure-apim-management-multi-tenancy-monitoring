@@ -1,5 +1,5 @@
 resource "azuread_application" "garafana_app" {
-  display_name = "${var.tenant_name}_GRAFANA_APP"
+  display_name = var.tenant_name
   owners       = var.app_owners_ids
 }
 

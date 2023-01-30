@@ -39,8 +39,13 @@ variable "tenant_product" {
     type        = string
 }
 
-variable "tenant_ai_name" {
+variable "tenant_ai_id" {
     description = "The AI Id"
+    type        = string
+}
+
+variable "tenant_ai_instrumentation_key" {
+    description = "The AI Instrumentation Key"
     type        = string
 }
 
