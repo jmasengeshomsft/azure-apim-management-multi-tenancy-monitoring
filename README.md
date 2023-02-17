@@ -1,5 +1,18 @@
 # azure-apim-management-multi-tenancy-monitoring
 
+## Requirements
+
+- Support Application Insights for 500 different products. Each product will have varying number of APIs. An application team can manage multiple products as a portfolio.
+- Application teams regularly work within their products but need ability to perform cross-product queries.
+- Consolidate Log Analytics Workspaces and used as backing store for Application Insights.
+- Consolidate Application Insights were appropriate.
+- Cross-workspace and cross-Application Insights queries for reporting functions such as API usage metrics and guidance for app teams to improve API quality.
+- Reduce business risks for high business impact application such as HR or Finance.
+- Charge back to product teams.
+- RBAC assignments are made at resource groups.
+- Integration with API Management as the source of metrics for Application Insights.
+- No plans to use AMPLS.
+
 ![image](https://user-images.githubusercontent.com/86074746/211883662-d4c10bc5-4b7a-4b86-be5d-d8ec0a8586a5.png)
 
 ## How to Deploy Locally
