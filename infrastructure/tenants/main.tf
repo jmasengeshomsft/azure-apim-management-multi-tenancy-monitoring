@@ -34,7 +34,7 @@ module "tenant" {
   # depends_on = [
   #   module.tenant-service-principal
   # ]
-  count = 2
+  count = 50
     source                        = "../modules/tenant"
     tenant_name                   = "tenant-${count.index}"
     product_name                  = "tenant-${count.index}-product"
