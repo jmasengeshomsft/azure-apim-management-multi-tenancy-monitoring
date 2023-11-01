@@ -33,7 +33,8 @@ variable "tenant_principal_ids" {
     type = list(object({
         principal_id                     = string
         role                             = string 
-        skip_service_principal_aad_check = bool                 
+        skip_service_principal_aad_check = bool
+        type                             = string                 
     }))
     default = []
 }
@@ -46,6 +47,28 @@ variable "tenant_rg" {
 variable "tenant_location" {
     description = "The tenant location"
     type        = string
+} 
+
+# variable "tenant_app_owner_id" {
+#     description = "The tenant app owner id"
+#     type        = string
+# } 
+
+
+
+variable "tenant_cost_center" {
+    description = "The tenant cost center"
+    type        = string
+} 
+
+variable "tenant_default_email_address" {
+  description = "The default email to be used in the action group"
+  type        = string
+}
+
+variable "tenant_service_principal_name" {
+  description = "The default service principal name to be used in role assignment"
+  type        = string
 }
 
 variable "tags" {

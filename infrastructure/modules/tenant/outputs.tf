@@ -15,4 +15,6 @@ output "tenant_rg" {
   value = azurerm_resource_group.tenant_rg
 }
 
-
+output "email_action_group" {
+  value = azurerm_monitor_action_group.action_group
+}

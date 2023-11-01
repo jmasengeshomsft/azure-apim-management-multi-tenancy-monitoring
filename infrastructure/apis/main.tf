@@ -34,6 +34,20 @@ module "team_a_api-fakerest" {
   tenant_ai_name                   = "${var.tenant_a_name}-appinsights"
 }
 
+module "team_a_api-fakerest1" {
+  source                           = "../modules/tenant-api/"
+  api_name                         = "team-a-fakerest-api-1"
+  api_service_url                  = "https://fakerestapi.azurewebsites.net"
+  api_path                         = "fakerest-1"
+  content_link                     = "https://fakerestapi.azurewebsites.net/swagger/v1/swagger.json"
+  content_type                     = "openapi+json-link" 
+  apim_name                        = data.azurerm_api_management.apim_instance.name
+  apim_resource_group_name         = data.azurerm_api_management.apim_instance.resource_group_name
+  tenant_rg                        = var.tenant_a_rg
+  tenant_product                   = "${var.tenant_a_name}-product"
+  tenant_ai_name                   = "${var.tenant_a_name}-appinsights"
+}
+
 //---------TENANT B APIS-------------------------
 //Petstore API
 module "team_b_api" {
